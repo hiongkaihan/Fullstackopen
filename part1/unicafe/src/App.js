@@ -1,31 +1,10 @@
 import { useState } from 'react'
 
-const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-
-  return (
-    <div>
-      <Header/>
-      <Button handleClick={() => setGood(good + 1)} text="good" />
-      <Button handleClick={() => setNeutral(neutral + 1)} text="neutral" />
-      <Button handleClick={() => setBad(bad + 1)} text="bad" />
-      <Statistics good={good} neutral={neutral} bad={bad} />
-    </div>
-  )
-}
-
 const Header = () => <h1>give feedback</h1>
 
-const Button = (props) => {
-  return (
-    <button onClick={props.handleClick}>{props.text}</button>
-  )
-}
+const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
 
-const Statistics = ({good, neutral, bad}) => {
+const Statistics = ({ good, neutral, bad }) => {
 
   const total = good + neutral + bad
   const average = (good * 1 + bad * -1) / total
@@ -33,12 +12,13 @@ const Statistics = ({good, neutral, bad}) => {
 
   if (total === 0) {
     return (
-      <div>
+      <>
         <h1>statistics</h1>
         <p>No feedback given</p>
-      </div>
+      </>
     )
   }
+
   return (
     <div>
       <h1>statistics</h1>
@@ -56,7 +36,7 @@ const Statistics = ({good, neutral, bad}) => {
   )
 }
 
-const StatisticLine = ({text, value, sign}) => {
+const StatisticLine = ({ text, value, sign }) => {
   return (
     <tr>
       <td>{text}</td>
@@ -64,4 +44,22 @@ const StatisticLine = ({text, value, sign}) => {
     </tr>
   )
 }
+
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  return (
+    <div>
+      <Header/>
+      <Button handleClick={() => setGood(good + 1)} text="good" />
+      <Button handleClick={() => setNeutral(neutral + 1)} text="neutral" />
+      <Button handleClick={() => setBad(bad + 1)} text="bad" />
+      <Statistics good={good} neutral={neutral} bad={bad} />
+    </div>
+  )
+}
+
 export default App
