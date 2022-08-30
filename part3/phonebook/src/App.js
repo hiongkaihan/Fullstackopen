@@ -85,7 +85,8 @@ const App = () => {
       personService
         .remove(id)
         .then(() => {
-          setPersons(persons.filter(person => person.id !== parseInt(id)))
+          setPersons(persons.filter(person => person.id !== id))
+          console.log(persons)
           setNotificationMessage(`Person has been removed from phonebook`)
           setTimeout(() => {
             setNotificationMessage(null)
